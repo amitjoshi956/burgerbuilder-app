@@ -7,12 +7,12 @@ import Button from '../../UI/Button/Button'
 const checkoutSummary = (props) => {
     return (
         <div className={classes.CheckoutSummary}>
-            <h1>We hope you love this lip-smacking Burger!</h1>
+            <h1>We hope you love this lip-smacker!</h1>
             <div style={{ width: '100%', margin: 'auto' }}>
                 <Burger ingredients={props.ingredients} />
             </div>
-            <Button btnType='Danger'>CANCEL</Button>
-            <Button btnType='Success'>CONTINUE</Button>
+            <Button btnType='Danger' clicked={props.checkoutCanceled}>CANCEL</Button>
+            <Button btnType='Success' clicked={props.checkoutContinued}>CONTINUE</Button>
         </div>
     )
 }
