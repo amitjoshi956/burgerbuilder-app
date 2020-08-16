@@ -2,3 +2,4 @@ This BurgerBuilder App allows one to customize a Burger and place an order. Foll
  - Customize your Burger (ingredients)
  - Place order
  - Order history
+ - User authentication
