@@ -8,6 +8,7 @@ import Input from '../../../components/UI/Input/Input'
 import { connect } from 'react-redux'
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler'
 import * as actions from '../../../store/actions/'
+import { updateObject, checkValidity } from '../../../utils/utility'
 
 class ContactData extends Component {
     state = {
@@ -75,7 +76,8 @@ class ContactData extends Component {
                 },
                 value: '',
                 validation: {
-                    required: true
+                    required: true,
+                    isEmail: true,
                 },
                 valid: false,
                 touched: false,
@@ -113,24 +115,15 @@ class ContactData extends Component {
         this.props.onOrderBurger(this.props.token, order)
     }
 
-    checkValidity(value, rules) {
-        let isValid = true
-
-        if (rules.required) isValid = isValid && value.trim() !== ''
-        if (rules.minLength) isValid = isValid && value.length >= rules.minLength
-        if (rules.maxLength) isValid = isValid && value.length <= rules.maxLength
-        if (rules.isNumeric) isValid = isValid && (/^\d+$/).test(value)
-
-        return isValid
-    }
-
     inputChangedHandler = (event, inputIdentifer) => {
-        const updatedOrderForm = { ...this.state.orderForm }
-        const updatedFormEl = { ...updatedOrderForm[inputIdentifer] }
-        updatedFormEl.value = event.target.value
-        updatedFormEl.valid = this.checkValidity(updatedFormEl.value, updatedFormEl.validation)
-        updatedFormEl.touched = true
-        updatedOrderForm[inputIdentifer] = updatedFormEl
+        const updatedFormEl = updateObject(this.state.orderForm[inputIdentifer], {
+            value: event.target.value,
+            valid: checkValidity(event.target.value, this.state.orderForm[inputIdentifer].validation),
+            touched: true,
+        })
+        const updatedOrderForm = updateObject(this.state.orderForm, {
+            [inputIdentifer]: updatedFormEl
+        })
 
         let isFormValid = true
         for (let key in updatedOrderForm) {
