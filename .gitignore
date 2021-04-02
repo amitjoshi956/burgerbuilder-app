@@ -22,3 +22,8 @@ yarn-error.log*
 
 /scripts
 /config
+
+# hosting
+.firebaserc
+firebase.json
+.firebase/
