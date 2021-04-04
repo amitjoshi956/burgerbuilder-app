@@ -13,9 +13,10 @@ const Orders = lazyLoad('containers/Orders/Orders')
 const Auth = lazyLoad('containers/Auth/Auth')
 
 const App = props => {
+  const { onTryAutoSignup } = props
 
-  useEffect(() =>
-    props.onTryAutoSignup(), [])
+  useEffect(() => onTryAutoSignup(),
+    [onTryAutoSignup])
 
   // use this function to render a provided component
   const renderComponent = (CustomComponent, props) => <CustomComponent {...props} />

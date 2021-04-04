@@ -38,10 +38,11 @@ export const BurgerBuilder = props => {
         props.history.push('/checkout')
     }
 
-    // component did mount
+    const { onInitIngredients } = props
+
     useEffect(() => {
-        props.onInitIngredients()
-    }, [])
+        onInitIngredients()
+    }, [onInitIngredients])
 
     const disabledInfo = { ...props.ings }
     for (const key in disabledInfo)

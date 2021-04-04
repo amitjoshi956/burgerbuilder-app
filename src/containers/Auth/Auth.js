@@ -60,11 +60,12 @@ const Auth = props => {
 
     const switchAuthModeHandler = () => setIsSignUp(prevIsSignUp => !prevIsSignUp)
 
-    // component did mount
+    const { isBuildingBurger, authRedirectPath, onSetAuthRedirectPath } = props
+
     useEffect(() => {
-        if (!props.isBuildingBurger && props.authRedirectPath !== '/')
-            props.onSetAuthRedirectPath()
-    }, [])
+        if (!isBuildingBurger && authRedirectPath !== '/')
+            onSetAuthRedirectPath()
+    }, [isBuildingBurger, authRedirectPath, onSetAuthRedirectPath])
 
     const formElements = []
     for (let key in authForm) {
