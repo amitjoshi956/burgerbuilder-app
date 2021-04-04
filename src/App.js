@@ -18,11 +18,11 @@ const App = props => {
     props.onTryAutoSignup(), [])
 
   // use this function to render a provided component
-  const renderComponent = (CustomComponent) => () => <CustomComponent />
+  const renderComponent = (CustomComponent, props) => <CustomComponent {...props} />
 
   let routes = (
     <Switch>
-      <Route path='/auth' render={renderComponent(Auth)} />
+      <Route path='/auth' render={props => renderComponent(Auth, props)} />
       <Route path='/' component={BurgerBuilder} />
       <Redirect to='/' />
     </Switch>
@@ -31,10 +31,10 @@ const App = props => {
   if (props.isAuthenticated) {
     routes = (
       <Switch>
-        <Route path='/checkout' render={renderComponent(Checkout)} />
-        <Route path='/orders' component={renderComponent(Orders)} />
+        <Route path='/checkout' render={props => renderComponent(Checkout, props)} />
+        <Route path='/orders' render={props => renderComponent(Orders, props)} />
         <Route path='/logout' component={Logout} />
-        <Route path='/auth' component={renderComponent(Auth)} />
+        <Route path='/auth' render={props => renderComponent(Auth, props)} />
         <Route path='/' component={BurgerBuilder} />
         <Redirect to='/' />
       </Switch>
